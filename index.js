@@ -45,8 +45,8 @@ app.post("/verify", async (req, res) => {
     const templateBuffer = fs.readFileSync(templatePath);
 
     // Load the template PDF
-    // const pdfDoc = await PDFDocument.load(templateBuffer);
-    // const page = pdfDoc.getPage(0);
+    const pdfDoc = await PDFDocument.load(templateBuffer);
+    const page = pdfDoc.getPage(0);
 
     // Insert verification number and other relevant data into the PDF
     const verificationNumber = generateVerificationNumber();
