@@ -1,3 +1,4 @@
+const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const { PDFDocument, rgb } = require("pdf-lib");
@@ -5,26 +6,26 @@ const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
 const checkVerification = require("./verificationService");
 
-const express = require("express");
 const app = express();
 
-//Middleware setup
+// Middleware setup
 app.use(bodyParser.json());
 
 // Configure nodemailer transporter
 var transporter = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-      user: "9631f35e30886c",
-      pass: "00b0ad0a9df824"
-    }
-  });
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "9631f35e30886c",
+    pass: "00b0ad0a9df824"
+  }
+});
 
 // Function to generate a verification number
 function generateVerificationNumber() {
   return uuidv4();
 }
+
 // POST /verify endpoint
 app.post("/verify", async (req, res) => {
   const { ID, recipientEmail } = req.body;
